@@ -1,0 +1,64 @@
+{{extends "./layout/base.html" }}
+
+{{block title()}}
+{{post.Title}}::Comments
+{{end}}
+
+
+{{block pageContent()}}
+<div class="py-20">
+    <div class="news__container">
+        <div class="news bb-0">
+            <div class="news__left">
+                <img src="/public/assets/arrow-up.svg" alt="">
+                <span>{{post.CommentCount}}</span>
+            </div>
+            <div class="news__right">
+                <p>
+                    <a href="{{post.URL}}" target="_blank">{{post.Title}}</a>
+                </p>
+                <div class="news__info">
+                    <div>
+                        <img src="/public/assets/message.svg" alt="">
+                        <a href="/comments/{{post.ID}}"> {{post.CommentCount}} Comment{{post.CommentCount > 1 ? "s":
+                            ""}}</a>
+                    </div>
+                    <div>
+                        <img src="/public/assets/user.svg" alt="">
+                        <span> {{post.Username}}</span>
+                    </div>
+                    <div>
+                        <img src="/public/assets/clock.svg" alt="">
+                        <span> {{post.GetHumanPostDate()}}</span>
+                    </div>
+                    <div>
+                        <img src="/public/assets/link.svg" alt="">
+                        <span> <a href="{{post.URL}}" target="_blank">{{post.GetHost()}}</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="news__comment" method="post" action="/comments/{{post.ID}}">
+            <input type="hidden" name="csrf_token" value="{{ .CSRFToken }}">
+            {{if len(.Flash) > 0}}
+            <div>{{.Flash}}</div>
+            {{end}}
+            <textarea name="comment"></textarea>
+            {{if .IsAuthenticated}} <button type="submit" value="Add comment">Add comment</button> {{end}}
+        </form>
+    </div>
+</div>
+<div class="comments container">
+    {{range comments}}
+    <div class="comment">
+        <div class="comment__top">
+            <span>{{.Users.Username}}</span><time>{{.GetHumanCommentDate()}}</time>
+        </div>
+        <div class="comment__bottom">
+            {{.Body}}
+        </div>
+    </div>
+    {{end}}
+
+</div>
+{{end}}

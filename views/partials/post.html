@@ -1,0 +1,29 @@
+<div class="news">
+    <div class="news__left">
+        <a href="/vote?id={{.ID}}"><img src="/public/assets/arrow-up.svg" alt="" /></a>
+        <span>{{.Votes}}</span>
+    </div>
+    <div class="news__right">
+        <p>
+            <a href="{{.URL}}" target="_blank">{{.Title}}</a>
+        </p>
+        <div class="news__info">
+            <div>
+                <img src="/public/assets/message.svg" alt="" />
+                <a href="/comments/{{.ID}}"> {{.CommentCount}} Comment{{.CommentCount > 1 ? "s": ""}}</a>
+            </div>
+            <div>
+                <img src="/public/assets/user.svg" alt="" />
+                <span> {{.Username}}</span>
+            </div>
+            <div>
+                <img src="/public/assets/clock.svg" alt="" />
+                <span>{{.GetHumanPostDate()}}</span>
+            </div>
+            <div>
+                <img src="/public/assets/link.svg" alt="" />
+                <span><a href="{{.URL}}" target="_blank">{{.GetHost()}}</a></span>
+            </div>
+        </div>
+    </div>
+</div>
